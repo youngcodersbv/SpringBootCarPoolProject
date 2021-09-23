@@ -15,6 +15,7 @@ public class HelloWorldControllerTests {
 
     @Test
     public void initializtionTest() {
+        // Check the context is loaded
         assertThat(controller).isNotNull();
     }
 
