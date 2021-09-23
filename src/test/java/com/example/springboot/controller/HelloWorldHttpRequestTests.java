@@ -29,4 +29,10 @@ public class HelloWorldHttpRequestTests {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/other",
                 String.class)).contains("Hello Other World");
     }
+
+    @Test
+    public void opensHelloWorld2() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+                String.class)).contains("<a href=\"/actuator\">Actuator</a>");
+    }
 }
