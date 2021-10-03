@@ -21,10 +21,15 @@
     </tbody>
 </table>
 
-<p><a href="/">Hello World Page</a></p>
+
+<p>Users form:</p>
 <form action="#" th:action="@{/users}" th:object="${user}" method="post">
     <input type="text" th:value="${name}" name="name"/>
     <input type="submit" />
 </form>
+<p>Links:</p>
+<p><a href="/">Hello World Page</a></p>
+<p><a href="/commutes">Commutes</a></p>
+
 </body>
 </html>

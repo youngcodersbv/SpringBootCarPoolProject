@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello I will be displayed in the browser title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Commutes</h1>
+<div></div>
+<table>
+    <thead>
+    <tr>
+        <th th:text="ID">ID</th>
+        <th th:text="Home"></th>
+        <th th:text="Work"></th>
+        <th th:text="User"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="x: ${xxx}">
+        <td th:text="${x.id}"></td>
+        <td th:text="${x.home}"></td>
+        <td th:text="${x.work}"></td>
+        <td th:text="${x.user.name}"></td>
+    </tr>
+    </tbody>
+
+</table>
+
+<p>Commutes form:</p>
+<form action="#" th:action="@{/commutes}" th:object="${commutes}" method="post">
+    <input type="text" th:value="${home}" name="home"/><br />
+    <input type="text" th:value="${work}" name="work"/><br />
+    <input type="text" th:value="${userId}" name="userId"/><br />
+    <input type="submit" />
+</form>
+<p>Links:</p>
+<p><a href="/">Hello World Page</a></p>
+<p><a href="/users">Users</a></p>
+
+</body>
+</html>
