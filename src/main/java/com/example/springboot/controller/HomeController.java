@@ -10,22 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class HelloWorldController {
+public class HomeController {
 
     @GetMapping("/")
-    public String index(@RequestParam(value = "name", defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
+    public String index() {
         return "index";
     }
-
-    @PostMapping("/")
-    public String postIndex(@RequestParam("name") String name) {
-        return "redirect:/?name=" + name;
-    }
-
-    @GetMapping("/other")
-    public String other() {
-        return "other";
-    }
-
 }
