@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static com.example.springboot.controller.Constants.USERS;
+
 @Controller
-@RequestMapping("/users")
+@RequestMapping(USERS)
 public class UserController {
 
     @Autowired
@@ -27,7 +29,7 @@ public class UserController {
     @PostMapping()
     public String postIndex(@ModelAttribute User user) {
         repository.save(user);
-        return "redirect:/users";
+        return "redirect:" + USERS;
     }
 
 
