@@ -11,10 +11,12 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+import static com.example.springboot.controller.Constants.JSON;
+import static com.example.springboot.controller.Constants.USERS;
 import static com.example.springboot.model.User.createFilter;
 
 @RestController()
-@RequestMapping(path = "/json/users")
+@RequestMapping(path = JSON + USERS)
 public class UserJsonController {
 
     @Autowired
