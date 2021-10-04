@@ -5,6 +5,8 @@ import com.example.springboot.model.Commute;
 import com.example.springboot.model.User;
 import com.example.springboot.repository.CommuteRepository;
 import com.example.springboot.repository.UserRepository;
+import com.example.springboot.service.CommuteService;
+import com.example.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +25,14 @@ import static com.example.springboot.controller.Constants.REDIRECT;
 public class CommuteController {
 
     @Autowired
-    private CommuteRepository commuteRepository;
+    private CommuteService commuteService;
+
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping
     public String index(Model model) {
-        Iterable iter = commuteRepository.findAll();
+        Iterable iter = commuteService.findAll();
         model.addAttribute("xxx", iter);
         return "commutes";
     }
@@ -37,7 +40,7 @@ public class CommuteController {
     @PostMapping()
     public String postIndex(@ModelAttribute AddCommuteCommand commuteCommand) {
 
-        Optional<User> optionalUser = userRepository.findById(commuteCommand.getUserId());
+        Optional<User> optionalUser = userService.findById(commuteCommand.getUserId());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
 
@@ -46,7 +49,7 @@ public class CommuteController {
             commute.setWork(commuteCommand.getWork());
             commute.setUser(user);
             user.getCommutes().add(commute);
-            userRepository.save(user);
+            userService.save(user);
         }
         return REDIRECT + COMMUTES;
     }

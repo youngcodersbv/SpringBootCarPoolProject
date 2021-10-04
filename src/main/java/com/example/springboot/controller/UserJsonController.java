@@ -2,6 +2,7 @@ package com.example.springboot.controller;
 
 import com.example.springboot.model.User;
 import com.example.springboot.repository.UserRepository;
+import com.example.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +21,11 @@ import static com.example.springboot.model.User.createFilter;
 public class UserJsonController {
 
     @Autowired
-    private UserRepository userRepository;
+    UserService userService;
 
     @GetMapping
     public User[] getAllUserInJson(@RequestParam(value = "filter",required = false) String someStringValue) {
-        Iterable<User> users = userRepository.findAll();
+        Iterable<User> users = userService.findAll();
 
         List<User> result = new ArrayList();
         StreamSupport.stream(users.spliterator(),false)
@@ -56,7 +57,7 @@ public class UserJsonController {
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") long id) {
-        Optional<User> optionsUser = userRepository.findById(id);
+        Optional<User> optionsUser = userService.findById(id);
 
         return optionsUser.get();
     }

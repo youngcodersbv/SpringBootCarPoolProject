@@ -3,6 +3,7 @@ package com.example.springboot.controller;
 import com.example.springboot.dto.CommuteWithUsername;
 import com.example.springboot.model.Commute;
 import com.example.springboot.repository.CommuteRepository;
+import com.example.springboot.service.CommuteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +22,11 @@ import static com.example.springboot.model.Commute.createFilter;
 public class CommuteJsonController {
 
     @Autowired
-    private CommuteRepository commuteRepository;
+    private CommuteService commuteService;
 
     @GetMapping
     public CommuteWithUsername[] getAllCommuteInJson(@RequestParam(value = "filter",required = false) String someStringValue) {
-        Iterable<Commute> commutes = commuteRepository.findAll();
+        Iterable<Commute> commutes = commuteService.findAll();
 
         List<CommuteWithUsername> result = new ArrayList();
         StreamSupport.stream(commutes.spliterator(),false)
@@ -69,7 +70,7 @@ public class CommuteJsonController {
 
     @GetMapping("/{id}")
     public Commute getUserById(@PathVariable("id") long id) {
-        Optional<Commute> optionsCommute = commuteRepository.findById(id);
+        Optional<Commute> optionsCommute = commuteService.findById(id);
 
         return optionsCommute.get();
     }

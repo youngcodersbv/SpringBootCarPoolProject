@@ -2,6 +2,7 @@ package com.example.springboot.controller;
 
 import com.example.springboot.model.User;
 import com.example.springboot.repository.UserRepository;
+import com.example.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +19,18 @@ import static com.example.springboot.controller.Constants.USERS;
 public class UserController {
 
     @Autowired
-    private UserRepository repository;
+    UserService userService;
 
     @GetMapping()
     public String index(Model model) {
-        Iterable iter = repository.findAll();
+        Iterable iter = userService.findAll();
         model.addAttribute("users", iter);
         return "users";
     }
 
     @PostMapping()
     public String postIndex(@ModelAttribute User user) {
-        repository.save(user);
+        userService.save(user);
         return REDIRECT + USERS;
     }
 
