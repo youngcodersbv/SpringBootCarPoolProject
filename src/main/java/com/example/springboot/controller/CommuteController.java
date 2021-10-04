@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Optional;
 
+import static com.example.springboot.controller.Constants.COMMUTES;
+import static com.example.springboot.controller.Constants.REDIRECT;
+
 @Controller
-@RequestMapping("/commutes")
+@RequestMapping(COMMUTES)
 public class CommuteController {
 
     @Autowired
@@ -45,7 +48,7 @@ public class CommuteController {
             user.getCommutes().add(commute);
             userRepository.save(user);
         }
-        return "redirect:/commutes";
+        return REDIRECT + COMMUTES;
     }
 
 
