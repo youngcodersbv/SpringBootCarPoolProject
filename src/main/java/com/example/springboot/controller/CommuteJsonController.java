@@ -11,10 +11,12 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+import static com.example.springboot.controller.Constants.COMMUTES;
+import static com.example.springboot.controller.Constants.JSON;
 import static com.example.springboot.model.Commute.createFilter;
 
 @RestController()
-@RequestMapping(path = "/json/commutes")
+@RequestMapping(path = JSON + COMMUTES)
 public class CommuteJsonController {
 
     @Autowired
