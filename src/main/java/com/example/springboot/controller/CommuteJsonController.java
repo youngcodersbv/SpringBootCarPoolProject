@@ -1,5 +1,6 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.dto.CommuteWithUsername;
 import com.example.springboot.model.Commute;
 import com.example.springboot.repository.CommuteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,10 @@ public class CommuteJsonController {
     private CommuteRepository commuteRepository;
 
     @GetMapping
-    public Commute[] getAllCommuteInJson(@RequestParam(value = "filter",required = false) String someStringValue) {
+    public CommuteWithUsername[] getAllCommuteInJson(@RequestParam(value = "filter",required = false) String someStringValue) {
         Iterable<Commute> commutes = commuteRepository.findAll();
 
-        List<Commute> result = new ArrayList();
+        List<CommuteWithUsername> result = new ArrayList();
         StreamSupport.stream(commutes.spliterator(),false)
                 // The fully written out lambda
                 .filter((Commute commute) -> {
@@ -52,9 +53,18 @@ public class CommuteJsonController {
                 // Using a function to return a curryed function with 1 less parameter
                 .filter(createFilter(someStringValue))
                 // All "Predicate" functions accept 1 Commute parameter and return a boolean value
+                // The ideal use of the map method in a stream convert 1 class to another class
+                .map(commute -> {
+                    CommuteWithUsername commuteWithUsername = new CommuteWithUsername();
+                    commuteWithUsername.setId(commute.getId());
+                    commuteWithUsername.setHome(commute.getHome());
+                    commuteWithUsername.setWork(commute.getWork());
+                    commuteWithUsername.setUser(commute.getUser().getName());
+                    return commuteWithUsername;
+                })
                 .forEach(result::add);
 
-        return result.toArray(new Commute[result.size()]);
+        return result.toArray(new CommuteWithUsername[result.size()]);
     }
 
     @GetMapping("/{id}")
