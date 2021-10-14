@@ -20,7 +20,7 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserRepository repository) {
+	public CommandLineRunner returnsALambdaThatWillBeRunOnlyOnce(UserRepository repository) {
 		return (args) -> {
 			Iterable<User> iter = repository.findAll();
 

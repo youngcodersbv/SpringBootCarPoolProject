@@ -31,14 +31,14 @@ public class CommuteController {
     private UserService userService;
 
     @GetMapping
-    public String index(Model model) {
+    public String showTheCommutes(Model model) {
         Iterable iter = commuteService.findAll();
-        model.addAttribute("xxx", iter);
+        model.addAttribute("commutesIterable", iter);
         return "commutes";
     }
 
     @PostMapping()
-    public String postIndex(@ModelAttribute AddCommuteCommand commuteCommand) {
+    public String addCommute(@ModelAttribute AddCommuteCommand commuteCommand) {
 
         Optional<User> optionalUser = userService.findById(commuteCommand.getUserId());
         if (optionalUser.isPresent()) {
@@ -53,9 +53,5 @@ public class CommuteController {
         }
         return REDIRECT + COMMUTES;
     }
-
-
-
-
 
 }
